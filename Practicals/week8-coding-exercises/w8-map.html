@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>Week 8 Map Activity</title>
+  <style type="text/css">
+  #map { width: 90vw; height: 90vh }
+  </style>
+    <!-- Import MDL libraries -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <!-- import Mapbox library -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row"> <span class="mdl-layout__title">Map Activity</span>
+            </div>
+        </header>
+        
+    <div>
+        <input type="button" value="Pan to Australia Post Mount Waverley" onclick="panToMtWaverley()">
+		<input type="button" value="Show Path" onclick="showPath()">
+               
+    <div id="map"></div> 
+    </div>
+</body>
+
+<script src="w8-map.js"></script>
+</html>
