@@ -1,0 +1,198 @@
+<!--TODO: MAKE THE MAP BIGGER AND PUT IT TO THE RIGHT SIDE, SINCE THE MARKERS ARE NOT VISIBLE WHEN IT'S TOO SMALL-->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="application-name" content="Flight Scheduler">
+  <title>FLIGHT SCHEDULER</title>
+  <style>
+    h4 {
+      text-align: center;
+    }
+
+    #map {
+      width: 1000px;
+      height: 1000px
+    }
+  </style>
+  <!-- Import library code for MDL -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-green.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <!-- import Mapbox library -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet'>
+  <!--import countries library-->
+  <script src="https://eng1003.monash/libs/countries.js"></script>
+</head>
+
+<body>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!--Logo Placeholder-->
+        <img src="img/icon.svg" alt="FLIGHT SCHEDULER" width="70" height="70">
+
+        <!-- Title -->
+        <div class="mdl-layout-spacer"></div>
+        <span class="mdl-layout-title">FLIGHT SCHEDULER</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Accent-colored raised button with ripple -->
+        <form action="login.html">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            type="submit" id="loginSignUp">
+            LOGIN / SIGN UP
+          </button>
+        </form>
+      </div>
+    </header>
+    <!--Drawer-->
+    <div class="mdl-layout__drawer">
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="homepage.html">Home</a>
+        <a class="mdl-navigation__link" href="scheduledTrips.html">Scheduled Trips</a>
+        <a class="mdl-navigation__link" href="previousTrips.html">Previous Trips</a>
+        <a class="mdl-navigation__link" href="viewAllRoutes.html">View All Routes</a>
+      </nav>
+    </div>
+    <!--Content-->
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <style>
+          .demo-list-item {
+            width: 300px;
+          }
+        </style>
+
+
+        <!-- <div class = "mdl-cell--5-col">
+ Map div -->
+        <!-- <div id='map'></div>
+</div> -->
+
+        <!--Trip Date-->
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--1-col">
+            <h4>Date: </h4>
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input type="date" id="tripDate">
+              <label class="mdl-textfield__label" for="tripDate"></label>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            <div>
+              <h4>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="confirmDate">
+                  Confirm Date
+                </button>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <!-- Country Selection-->
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--1-col">
+            <h4>Country: </h4>
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" list="countries" type="text" id="country" />
+              <label class="mdl-textfield__label" for="country">Country</label>
+              <datalist id="countries"></datalist>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--2-col">
+            <h4>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="confirmCountry"
+                onclick="confirmCountry()">
+                Confirm Country
+              </button>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!--Aiports Selection-->
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col">
+          <h4>Source Airport: </h4>
+        </div>
+        <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" list="airportList" id="airport" />
+            <label class="mdl-textfield__label" for="airportList">Source Airport</label>
+            <datalist id="airportList" name="airports"></datalist>
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--2-col">
+          <h4>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="confirmAirport"
+              onclick="confirmAirport()">
+              Confirm Airport
+            </button>
+          </h4>
+        </div>
+      </div>
+      <!--Next Airport Selection-->
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--1-col">
+          <h4>Next Airport: </h4>
+        </div>
+        <div class="mdl-cell mdl-cell--2-col">
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" list="airportListNext" id="airportNext" />
+            <label class="mdl-textfield__label" for="airportListNext">Next Airport</label>
+            <datalist id="airportListNext" name="airportsNext"></datalist>
+          </div>
+        </div>
+        <div class="mdl-cell mdl-cell--2-col">
+          <h4>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="confirmAirport"
+              onclick="nextAirport()">
+              Confirm Airport
+            </button>
+          </h4>
+        </div>
+      </div>
+      <!--To display additional airport dropdown lists-->
+      <div class="mdl-grid" id ="airportListDisplay">
+      </div>
+
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col">
+          <div id='map'></div>
+        </div>
+        <div class="mdl-cell--5-offset mdl-cell--2-col">
+          <h4>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="saveTrip">
+              Save Trip
+            </button>
+          </h4>
+          <h4>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="undoRoute">
+              Undo Route
+            </button>
+          </h4>
+          <!-- <h4>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Clear Routes
+      </button>
+    </h4> -->
+        </div>
+      </div>
+  </div>
+  </main>
+  </div>
+  <script src="js/shared.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/homepage.js"></script>
+</body>
+
+
+</html>
