@@ -151,7 +151,7 @@ function submitOrder(){
     }
 
 
-    //check price of each ingredient
+    //test line check price of each ingredient
     // outputRef.innerHTML = "\n" + output + meatSelected + meatPrice + " Cheese: " + cheeseSel + cheesePrice + " Sauces: " + sauceSel + saucePrice
     //                         + " Vegetables: " + vegeSel + vegePrice + " Spice Level: " + spicelvl + " Beverage: " + bevSel + bevPrice +"</br> Spice price:  " + spicePrice;
 
